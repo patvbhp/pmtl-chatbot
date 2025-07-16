@@ -19,6 +19,46 @@ export const TEST_PROMPTS: Record<string, ModelMessage> = {
       { type: 'text', text: 'What are the advantages of using Next.js?' },
     ],
   },
+  // 🈶 Prompt dịch sang tiếng Việt
+  USER_TRANSLATE_EN_TO_VI: {
+    role: 'user',
+    content: [
+      {
+        type: 'text',
+        text: 'Please translate the following paragraph into Vietnamese: "The economic growth of Vietnam has been impressive over the past decade."',
+      },
+    ],
+  },
+  // 🌐 Prompt dịch sang tiếng Anh
+  USER_TRANSLATE_VI_TO_EN: {
+    role: 'user',
+    content: [
+      {
+        type: 'text',
+        text: 'Vui lòng dịch đoạn sau sang tiếng Anh: "Việt Nam là một quốc gia có lịch sử lâu đời và phong phú."',
+      },
+    ],
+  },
+  // 📄 Prompt tóm tắt
+  USER_SUMMARIZE: {
+    role: 'user',
+    content: [
+      {
+        type: 'text',
+        text: 'Hãy tóm tắt đoạn văn sau trong 3 câu: "Trí tuệ nhân tạo là một lĩnh vực phát triển nhanh chóng với nhiều ứng dụng thực tế. Nó có thể hỗ trợ con người trong nhiều công việc như y tế, giáo dục, và công nghiệp. Tuy nhiên, nó cũng đặt ra những thách thức về đạo đức và quyền riêng tư."',
+      },
+    ],
+  },
+
+  // Giữ nguyên các prompt mẫu có sẵn...
+  USER_IMAGE_ATTACHMENT: { ... },
+  USER_TEXT_ARTIFACT: { ... },
+  CREATE_DOCUMENT_TEXT_CALL: { ... },
+  CREATE_DOCUMENT_TEXT_RESULT: { ... },
+  GET_WEATHER_CALL: { ... },
+  GET_WEATHER_RESULT: { ... },
+};
+
   USER_IMAGE_ATTACHMENT: {
     role: 'user',
     content: [

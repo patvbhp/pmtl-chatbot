@@ -19,27 +19,45 @@ function PureSuggestedActions({
   selectedVisibilityType,
 }: SuggestedActionsProps) {
   const suggestedActions = [
-    {
-      title: 'What are the advantages',
-      label: 'of using Next.js?',
-      action: 'What are the advantages of using Next.js?',
-    },
-    {
-      title: 'Write code to',
-      label: `demonstrate djikstra's algorithm`,
-      action: `Write code to demonstrate djikstra's algorithm`,
-    },
-    {
-      title: 'Help me write an essay',
-      label: `about silicon valley`,
-      action: `Help me write an essay about silicon valley`,
-    },
-    {
-      title: 'What is the weather',
-      label: 'in San Francisco?',
-      action: 'What is the weather in San Francisco?',
-    },
-  ];
+const suggestedActions = [
+  {
+    title: 'Lợi ích của',
+    label: 'việc sử dụng Next.js là gì?',
+    action: 'Lợi ích của việc sử dụng Next.js là gì?',
+  },
+  {
+    title: 'Viết mã để',
+    label: 'minh họa thuật toán Dijkstra',
+    action: 'Viết mã để minh họa thuật toán Dijkstra',
+  },
+  {
+    title: 'Giúp tôi viết bài luận',
+    label: 'về Thung lũng Silicon',
+    action: 'Giúp tôi viết một bài luận về Thung lũng Silicon',
+  },
+  {
+    title: 'Thời tiết hôm nay',
+    label: 'ở San Francisco như thế nào?',
+    action: 'Thời tiết hôm nay ở San Francisco như thế nào?',
+  },
+  // Thêm các gợi ý dịch thuật:
+  {
+    title: 'Dịch sang tiếng Việt',
+    label: 'Tôi cần dịch đoạn văn sau...',
+    action: 'Hãy dịch đoạn văn sau sang tiếng Việt:',
+  },
+  {
+    title: 'Dịch sang tiếng Anh',
+    label: 'Giúp tôi dịch đoạn văn này',
+    action: 'Hãy dịch đoạn văn sau sang tiếng Anh:',
+  },
+  {
+    title: 'Tóm tắt văn bản',
+    label: 'Tóm tắt nội dung bên dưới giúp tôi',
+    action: 'Bạn có thể tóm tắt đoạn văn sau trong 3 câu không?',
+  },
+];
+
 
   return (
     <div

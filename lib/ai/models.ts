@@ -8,13 +8,13 @@ export interface ChatModel {
 
 export const chatModels: Array<ChatModel> = [
   {
-    id: 'chat-model',
-    name: 'Chat model',
-    description: 'Primary model for all-purpose chat',
+    id: 'Mô hình trò chuyện',
+    name: 'Mô hình trò chuyện',
+    description: 'Mô hình chính cho trò chuyện đa năng',
   },
   {
-    id: 'chat-model-reasoning',
-    name: 'Reasoning model',
-    description: 'Uses advanced reasoning',
+    id: 'mô hình trò chuyện-lý luận',
+    name: 'Mô hình lý luận',
+    description: 'Sử dụng lý luận nâng cao',
   },
 ];

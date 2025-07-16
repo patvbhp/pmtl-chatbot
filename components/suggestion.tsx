@@ -18,7 +18,6 @@ function PureSuggestedActions({
   sendMessage,
   selectedVisibilityType,
 }: SuggestedActionsProps) {
-  const suggestedActions = [
 const suggestedActions = [
   {
     title: 'Lợi ích của',
@@ -40,25 +39,35 @@ const suggestedActions = [
     label: 'ở San Francisco như thế nào?',
     action: 'Thời tiết hôm nay ở San Francisco như thế nào?',
   },
-  // Thêm các gợi ý dịch thuật:
+  // Prompt dịch thuật chuyên biệt:
   {
-    title: 'Dịch sang tiếng Việt',
-    label: 'Tôi cần dịch đoạn văn sau...',
-    action: 'Hãy dịch đoạn văn sau sang tiếng Việt:',
-  },
-  {
-    title: 'Dịch sang tiếng Anh',
-    label: 'Giúp tôi dịch đoạn văn này',
-    action: 'Hãy dịch đoạn văn sau sang tiếng Anh:',
-  },
-  {
-    title: 'Tóm tắt văn bản',
-    label: 'Tóm tắt nội dung bên dưới giúp tôi',
-    action: 'Bạn có thể tóm tắt đoạn văn sau trong 3 câu không?',
+    title: 'Dịch Phật giáo',
+    label: 'Tự động dịch văn bản tiếng Trung giản thể sang tiếng Việt',
+    action: `Là một chuyên gia dịch thuật tiếng Trung sang tiếng Việt trong lĩnh vực Phật giáo. Bạn hãy dịch các văn bản tiếng Trung giản thể sang tiếng Việt theo ngôn ngữ đời thường dễ hiểu. Giữ nguyên bố cục, dòng, đoạn và cách trình bày của văn bản gốc sang tiếng Việt. Không diễn đạt lại theo ý hiểu cá nhân, chỉ dịch sát nghĩa từng câu. Nếu gặp thuật ngữ chuyên môn khó dịch, hãy phiên âm Hán-Việt kèm theo giải thích ngắn gọn (nếu cần) ở cuối mỗi bản dịch.
+
+Từ điển dịch thuật chuyên môn cần ghi nhớ:
+- 礼佛大忏悔文: Lễ Phật Đại Sám Hối Văn
+- 女听众: Nữ Thính Giả
+- 台长答: Đài Trưởng đáp
+- 小房子: Ngôi Nhà Nhỏ
+- 冰山地狱: Địa Ngục Núi Băng
+- 男聽眾: Nam Thính Giả
+- 圖騰: Đồ Đằng
+- 靈性: Vong Linh
+- 聽眾: Thính Giả
+- 好好修: Cứ chăm chỉ tu hành
+- 誓願: thệ nguyện
+- 一門精進: Nhất Môn Tinh Tấn
+- 大悲神咒: Chú Đại Bi
+- 諸佛國者: các cõi Phật
+- 众生: chúng sinh
+- 卢军宏: Lư Quân Hoành
+- 要经者: Người cần Kinh
+- 师兄: Sư Huynh
+
+Bạn hãy tự động dịch tất cả các văn bản tiếng Trung tôi gửi lên.`,
   },
 ];
-
-
   return (
     <div
       data-testid="suggested-actions"

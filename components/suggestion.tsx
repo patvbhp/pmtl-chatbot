@@ -1,78 +1,108 @@
 'use client';
 
-import { AnimatePresence, motion } from 'framer-motion';
-import { useState } from 'react';
-import { useWindowSize } from 'usehooks-ts';
-
-import type { UISuggestion } from '@/lib/editor/suggestions';
-
-import { CrossIcon, MessageIcon } from './icons';
+import { motion } from 'framer-motion';
 import { Button } from './ui/button';
-import { cn } from '@/lib/utils';
-import { ArtifactKind } from './artifact';
+import { memo } from 'react';
+import type { UseChatHelpers } from '@ai-sdk/react';
+import type { VisibilityType } from './visibility-selector';
+import type { ChatMessage } from '@/lib/types';
 
-export const Suggestion = ({
-  suggestion,
-  onApply,
-  artifactKind,
-}: {
-  suggestion: UISuggestion;
-  onApply: () => void;
-  artifactKind: ArtifactKind;
-}) => {
-  const [isExpanded, setIsExpanded] = useState(false);
-  const { width: windowWidth } = useWindowSize();
+interface SuggestedActionsProps {
+  chatId: string;
+  sendMessage: UseChatHelpers<ChatMessage>['sendMessage'];
+  selectedVisibilityType: VisibilityType;
+}
+
+function PureSuggestedActions({
+  chatId,
+  sendMessage,
+  selectedVisibilityType,
+}: SuggestedActionsProps) {
+  const suggestedActions = [
+const suggestedActions = [
+  {
+    title: 'Lợi ích của',
+    label: 'việc sử dụng Next.js là gì?',
+    action: 'Lợi ích của việc sử dụng Next.js là gì?',
+  },
+  {
+    title: 'Viết mã để',
+    label: 'minh họa thuật toán Dijkstra',
+    action: 'Viết mã để minh họa thuật toán Dijkstra',
+  },
+  {
+    title: 'Giúp tôi viết bài luận',
+    label: 'về Thung lũng Silicon',
+    action: 'Giúp tôi viết một bài luận về Thung lũng Silicon',
+  },
+  {
+    title: 'Thời tiết hôm nay',
+    label: 'ở San Francisco như thế nào?',
+    action: 'Thời tiết hôm nay ở San Francisco như thế nào?',
+  },
+  // Thêm các gợi ý dịch thuật:
+  {
+    title: 'Dịch sang tiếng Việt',
+    label: 'Tôi cần dịch đoạn văn sau...',
+    action: 'Hãy dịch đoạn văn sau sang tiếng Việt:',
+  },
+  {
+    title: 'Dịch sang tiếng Anh',
+    label: 'Giúp tôi dịch đoạn văn này',
+    action: 'Hãy dịch đoạn văn sau sang tiếng Anh:',
+  },
+  {
+    title: 'Tóm tắt văn bản',
+    label: 'Tóm tắt nội dung bên dưới giúp tôi',
+    action: 'Bạn có thể tóm tắt đoạn văn sau trong 3 câu không?',
+  },
+];
+
 
   return (
-    <AnimatePresence>
-      {!isExpanded ? (
+    <div
+      data-testid="suggested-actions"
+      className="grid sm:grid-cols-2 gap-2 w-full"
+    >
+      {suggestedActions.map((suggestedAction, index) => (
         <motion.div
-          className={cn('cursor-pointer text-muted-foreground p-1', {
-            'absolute -right-8': artifactKind === 'text',
-            'sticky top-0 right-4': artifactKind === 'code',
-          })}
-          onClick={() => {
-            setIsExpanded(true);
-          }}
-          whileHover={{ scale: 1.1 }}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: 20 }}
+          transition={{ delay: 0.05 * index }}
+          key={`suggested-action-${suggestedAction.title}-${index}`}
+          className={index > 1 ? 'hidden sm:block' : 'block'}
         >
-          <MessageIcon size={windowWidth && windowWidth < 768 ? 16 : 14} />
-        </motion.div>
-      ) : (
-        <motion.div
-          key={suggestion.id}
-          className="absolute bg-background p-3 flex flex-col gap-3 rounded-2xl border text-sm w-56 shadow-xl z-50 -right-12 md:-right-16 font-sans"
-          transition={{ type: 'spring', stiffness: 500, damping: 30 }}
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: -20 }}
-          exit={{ opacity: 0, y: -10 }}
-          whileHover={{ scale: 1.05 }}
-        >
-          <div className="flex flex-row items-center justify-between">
-            <div className="flex flex-row items-center gap-2">
-              <div className="size-4 bg-muted-foreground/25 rounded-full" />
-              <div className="font-medium">Assistant</div>
-            </div>
-            <button
-              type="button"
-              className="text-xs text-gray-500 cursor-pointer"
-              onClick={() => {
-                setIsExpanded(false);
-              }}
-            >
-              <CrossIcon size={12} />
-            </button>
-          </div>
-          <div>{suggestion.description}</div>
           <Button
-            variant="outline"
-            className="w-fit py-1.5 px-3 rounded-full"
-            onClick={onApply}
+            variant="ghost"
+            onClick={async () => {
+              window.history.replaceState({}, '', `/chat/${chatId}`);
+
+              sendMessage({
+                role: 'user',
+                parts: [{ type: 'text', text: suggestedAction.action }],
+              });
+            }}
+            className="text-left border rounded-xl px-4 py-3.5 text-sm flex-1 gap-1 sm:flex-col w-full h-auto justify-start items-start"
           >
-            Apply
+            <span className="font-medium">{suggestedAction.title}</span>
+            <span className="text-muted-foreground">
+              {suggestedAction.label}
+            </span>
           </Button>
         </motion.div>
-      )}
-    </AnimatePresence>
+      ))}
+    </div>
   );
-};
+}
+
+export const SuggestedActions = memo(
+  PureSuggestedActions,
+  (prevProps, nextProps) => {
+    if (prevProps.chatId !== nextProps.chatId) return false;
+    if (prevProps.selectedVisibilityType !== nextProps.selectedVisibilityType)
+      return false;
+
+    return true;
+  },
+);

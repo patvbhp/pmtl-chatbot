@@ -1,16 +1,18 @@
-import type { NextConfig } from 'next';
-
-const nextConfig: NextConfig = {
-  experimental: {
-    ppr: true,
-  },
-  images: {
-    remotePatterns: [
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  async headers() {
+    return [
       {
-        hostname: 'avatar.vercel.sh',
+        source: "/(.*)", // Cho phép tất cả các route
+        headers: [
+          {
+            key: "X-Frame-Options",
+            value: "ALLOWALL", // Cho phép iframe
+          },
+        ],
       },
-    ],
+    ];
   },
 };
 
-export default nextConfig;
+module.exports = nextConfig;

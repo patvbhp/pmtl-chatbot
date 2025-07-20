@@ -1,13 +1,14 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  reactStrictMode: true,
   async headers() {
     return [
       {
-        source: "/(.*)", // Cho phép tất cả các route
+        source: "/(.*)",
         headers: [
           {
             key: "X-Frame-Options",
-            value: "ALLOWALL", // Cho phép iframe
+            value: "ALLOWALL", // Cho phép iframe nhúng vào mọi trang
           },
         ],
       },
